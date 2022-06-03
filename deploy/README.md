@@ -14,7 +14,7 @@ To run this, you need to have:
 
 ## Quickstart
 
-First, you will need to edit [deploy/lib/rearc-quest-deploy.ts](deploy/lib/rearc-quest-deploy.ts)
+First, you will need to edit [deploy/lib/rearc-quest-deploy.ts](lib/rearc-quest-deploy.ts)
 and change the `domainZoneName` constant from `seickel.org` to your own domain name.
 
 Next, you will need to add the SECRET_WORD parameter in SSM Parameter Store. The Parameter name should be:
