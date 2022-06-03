@@ -6,10 +6,7 @@ import { DockerImageAsset } from "aws-cdk-lib/aws-ecr-assets";
 import { ApplicationLoadBalancedFargateService } from 'aws-cdk-lib/aws-ecs-patterns';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as route53 from 'aws-cdk-lib/aws-route53';
-import * as elb from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import { join } from "path";
-import { LoadBalancerTarget } from 'aws-cdk-lib/aws-route53-targets';
-import { SslPolicy } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import { Certificate, CertificateValidation } from 'aws-cdk-lib/aws-certificatemanager';
 import { listeners } from 'process';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
@@ -21,10 +18,13 @@ export class RearcQuestStack extends Stack {
       directory: join(__dirname, '../../')
     });
 
+    // CHANGE THIS TO YOUR OWN DOMAIN
+    const domainZoneName = 'seickel.org';
+
+    const domainName = 'rearc-quest.' + domainZoneName;
     const domainZone = route53.HostedZone.fromLookup(this, 'quest-rearc-domain-zone', {
-      domainName: 'seickel.org',
+      domainName: domainZoneName,
     });
-    const domainName = 'rearc-quest.seickel.org';
     const certificate = new Certificate(this, 'alfresco-cert', {
       domainName,
       validation: CertificateValidation.fromDns(domainZone),
