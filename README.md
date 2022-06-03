@@ -1,65 +1,37 @@
 # A quest in the clouds
 
-### Q. What is this quest?
-
-It is a fun way to assess your cloud skills. It is also a good representative sample of the work we do at Rearc. Quest is a webapp made with node.js and golang.
-
-### Q. So what skills should I have ?
-Public cloud (AWS, GCP, Azure). More than one cloud is a "good to have" but one is a "must have". General cloud concepts, especially networking. Docker (containerization). IaC (Infrastructure as code). Linux/Unix. Git. TLS certs is a plus.
-
 ### Q. What do I have to do ?
 You may do all or some of the following tasks. Please read over the complete list before starting.
 
-1. If you know how to use git, start a git repository (local-only is acceptable) and commit all of your work to it.
-2. Deploy the app in any public cloud and navigate to the index page. Use Linux 64-bit x86/64 as your OS (Amazon Linux preferred in AWS, Similar Linux flavor preferred in GCP and Azure)
-3. Deploy the app in a Docker container. Use `node` as the base image. Version `node:10` or later should work.
-4. Inject an environment variable (`SECRET_WORD`) in the Docker container. The value of `SECRET_WORD` should be the secret word discovered on the index page of the application.
-5. Deploy a load balancer in front of the app.
-6. Use Infrastructure as Code (IaC) to "codify" your deployment. Terraform is ideal, but use whatever you know, e.g. CloudFormation, CDK, Deployment Manager, etc.
-7. Add TLS (https). You may use locally-generated certs.
+[x] If you know how to use git, start a git repository (local-only is acceptable) and commit all of your work to it.
+[x] Deploy the app in any public cloud and navigate to the index page. Use Linux 64-bit x86/64 as your OS (Amazon Linux preferred in AWS, Similar Linux flavor preferred in GCP and Azure)
+[x] Deploy the app in a Docker container. Use `node` as the base image. Version `node:10` or later should work.
+[x] Inject an environment variable (`SECRET_WORD`) in the Docker container. The value of `SECRET_WORD` should be the secret word discovered on the index page of the application.
+[x] Deploy a load balancer in front of the app.
+[x] Use Infrastructure as Code (IaC) to "codify" your deployment. Terraform is ideal, but use whatever you know, e.g. CloudFormation, CDK, Deployment Manager, etc.
+[x] Add TLS (https). You may use locally-generated certs.
 
-### Q. How do I know I have solved these stages?
-Each stage can be tested as follows (where `<ip_or_host>` is the location where the app is deployed):
 
-1. Public cloud & index page (contains the secret word) - `http(s)://<ip_or_host>[:port]/`
-2. Docker check - `http(s)://<ip_or_host>[:port]/docker`
-3. Secret Word check - `http(s)://<ip_or_host>[:port]/secret_word`
-4. Load Balancer check  - `http(s)://<ip_or_host>[:port]/loadbalanced`
-5. TLS check - `http(s)://<ip_or_host>[:port]/tls`
+### Deployment :rocket:
 
-### Q. Do I have to do all these?
-You may do whichever, and however many, of the tasks above as you'd like. We suspect that once you start, you won't be able to stop. It's addictive. Extra credit if you are able to submit working entries for more than one cloud provider.
+For instructions on how to deploy this, please view the deploy [README](deploy/README).
 
-### Q. What do I have to submit?
-1. Your work assets, as one or both of the following:
-  - A link to a hosted git repository.
-  - A ZIP file containing your project directory. Include the `.git` sub-directory if you used git.
-2. Proof of completion, as one or both of the following:
-  - Link(s) to hosted public cloud deployment(s).
-  - One or more screenshots showing, at least, the index page of the final deployment in one or more public cloud(s) you have chosen.
-3. An answer to the prompt: "Given more time, I would improve..."
-  - Discuss any shortcomings/immaturities in your solution and the reasons behind them (lack of time is a perfectly fine reason!)
-  - **This may carry as much weight as the code itself**
+### Notes :memo:
 
-Your work assets should include:
+- I chose to deploy this with the AWS CDK because I amost familiar with that mechanism and I happen to believe it's the best way to create infrastructure.
+- I put the `SECRET_WORD` variable in parameter store so that I could avoid storing secrets in code. This is my usual practice. Also, because it is specified
+as a `secret` instead of an `environment` variable, it will not be visible in the web console either, it is only decrypted at runtime.
+- The requirements didn't specify creating a domain name, but who wants to lookup the randomly generated load balancer address? Not me.
 
-- IaC files, if you completed that task.
-- One or more Dockerfiles, if you completed that task.
-- A sensible README or other file(s) that contain instructions, notes, or other written documentation to help us review and assess your submission.
+### Areas to improve :construction_worker_man:
+- Manually editing a file to add your domain name is hacky, but hey it's almost dinner time. :man_shrugging: :pizza:
+- The cdk deployment itself could be in a github action and happen on every merge to `main`
+- There is no scaling policies at all. In a real scenario, I would specify minimum and maximum number of tasks, rules of when to scale out and in, and possibly schedules to alter the min and max values.
+- Considering this is going to receive almost no traffic, it probably should have been depoyed to a Lambda behind an API Gateway. I have not used that option yet so I opted for what I knew best.
+- I didn't bother to redeirect port 80 to 443, but that should be done. Again, dinner time!
+- I didn't configure logging at all. The default log group will never expire that will get costly eventually in a real application.
 
-### Q. How long do I need to host my submission on public cloud(s)?
-You don't have to at all if you don't want to. You can run it in public cloud(s), grab a screenshot, then tear it all down to avoid costs.
+### Thank You!
 
-If you _want_ to host it longer for us to view it, we recommend taking a screenshot anyway and sending that along with the link. Then you can tear down the quest whenever you want and we'll still have the screenshot. We recommend waiting no longer than one week after sending us the link before tearing it down.
+This was fun!
 
-### Q. What if I successfully complete all the challenges?
-We have many more for you to solve as a member of the Rearc team!
-
-### Q. What if I find a bug?
-Awesome! Tell us you found a bug along with your submission and we'll talk more!
-
-### Q. What if I fail?
-There is no fail. Complete whatever you can and then submit your work. Doing _everything_ in the quest is not a guarantee that you will "pass" the quest, just like not doing something is not a guarantee you will "fail" the quest.
-
-### Q. Can I share this quest with others?
-No.
