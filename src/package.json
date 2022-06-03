@@ -1,0 +1,15 @@
+{
+  "name": "quest",
+  "version": "1.0.0",
+  "description": "A quest in the clouds...",
+  "main": "000.js",
+  "scripts": {
+    "start": "node 000.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
