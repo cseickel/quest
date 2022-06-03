@@ -14,7 +14,7 @@ You may do all or some of the following tasks. Please read over the complete lis
 
 ### Deployment :rocket:
 
-For instructions on how to deploy this, please view the deploy [README](deploy/README).
+For instructions on how to deploy this, please view the deploy [README](deploy/README.md).
 
 ### Notes :memo:
 
