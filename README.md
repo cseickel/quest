@@ -18,7 +18,7 @@ For instructions on how to deploy this, please view the deploy [README](deploy/R
 
 ### Notes :memo:
 
-- I chose to deploy this with the AWS CDK because I amost familiar with that mechanism and I happen to believe it's the best way to create infrastructure.
+- I chose to deploy this with the AWS CDK because I am most familiar with that mechanism and I believe it's the best way to create infrastructure.
 - I put the `SECRET_WORD` variable in parameter store so that I could avoid storing secrets in code. This is my usual practice. Also, because it is specified
 as a `secret` instead of an `environment` variable, it will not be visible in the web console either, it is only decrypted at runtime.
 - The requirements didn't specify creating a domain name, but who wants to lookup the randomly generated load balancer address? Not me.
@@ -27,9 +27,9 @@ as a `secret` instead of an `environment` variable, it will not be visible in th
 - Manually editing a file to add your domain name is hacky, but hey it's almost dinner time. :man_shrugging: :pizza:
 - The cdk deployment itself could be in a github action and happen on every merge to `main`
 - There is no scaling policies at all. In a real scenario, I would specify minimum and maximum number of tasks, rules of when to scale out and in, and possibly schedules to alter the min and max values.
-- Considering this is going to receive almost no traffic, it probably should have been depoyed to a Lambda behind an API Gateway. I have not used that option yet so I opted for what I knew best.
-- I didn't bother to redeirect port 80 to 443, but that should be done. Again, dinner time!
-- I didn't configure logging at all. The default log group will never expire that will get costly eventually in a real application.
+- Considering this is going to receive almost no traffic, it probably should have been deployed to a Lambda behind an API Gateway. I have not used that option yet, so I opted for what I knew best.
+- I didn't bother to redirect port 80 to 443, but that should be done. Again, dinner time!
+- I didn't configure logging at all. The default log group will never expire and that will get costly over time in a real application.
 
 ### Thank You!
 
